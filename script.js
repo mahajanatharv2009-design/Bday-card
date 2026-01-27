@@ -44,9 +44,6 @@ function playHappyBirthday() {
         // "Happy birthday to you"
         [G4, 0.5], [G4, 0.5], [A4, 0.6], [G4, 0.6], [D4, 0.6], [C4, 1.0],
 
-        // "Happy birthday dear Maya"
-        [G4, 0.5], [G4, 0.5], [G4, 0.6], [E4, 0.6], [C4, 0.6], [B4, 0.6], [A4, 1.0],
-
         // "Happy birthday to you"
         [F4, 0.5], [F4, 0.5], [E4, 0.6], [C4, 0.6], [D4, 0.6], [C4, 1.4]
     ];
@@ -67,3 +64,4 @@ function playHappyBirthday() {
 
 // Play when the user clicks ONCE
 document.addEventListener("click", playHappyBirthday);
+
