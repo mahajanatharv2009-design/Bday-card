@@ -111,7 +111,6 @@ h1 {
     background: #ff0066;
 }
 
-/* MOBILE FIX */
 @media (max-width: 600px) {
     body {
         min-height: 100vh;
@@ -122,7 +121,7 @@ h1 {
     }
 
     .card {
-        width: 100%;
+        width: calc(100% - 10px);
         max-width: 360px;
         margin: 25px auto 90px auto;
         padding: 20px 15px;
