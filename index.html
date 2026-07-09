@@ -393,6 +393,7 @@
 window.addEventListener("DOMContentLoaded", () => {
   // Change the name here only, and it updates the whole card
   const birthdayName = "Izzy";
+
   document.querySelectorAll(".person-name").forEach(nameSpot => {
     nameSpot.textContent = birthdayName;
   });
@@ -403,14 +404,68 @@ window.addEventListener("DOMContentLoaded", () => {
   const scene = document.getElementById("scene");
 
   let isOpen = false;
+  let isMusicPlaying = false;
+
+  function playTone(audioCtx, frequency, startTime, duration) {
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+
+    oscillator.type = "triangle";
+    oscillator.frequency.setValueAtTime(frequency, startTime);
+
+    gainNode.gain.setValueAtTime(0.0001, startTime);
+    gainNode.gain.linearRampToValueAtTime(0.07, startTime + 0.03);
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+
+    oscillator.start(startTime);
+    oscillator.stop(startTime + duration);
+  }
+
+  function playBirthdayMusic() {
+    if (isMusicPlaying) return;
+
+    isMusicPlaying = true;
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    const G4 = 392.00;
+    const A4 = 440.00;
+    const B4 = 493.88;
+    const C5 = 523.25;
+    const D5 = 587.33;
+    const E5 = 659.25;
+
+    const melody = [
+      [G4, 0.35], [G4, 0.35], [A4, 0.7], [G4, 0.7], [C5, 0.7], [B4, 1.1],
+      [G4, 0.35], [G4, 0.35], [A4, 0.7], [G4, 0.7], [D5, 0.7], [C5, 1.1],
+      [G4, 0.35], [G4, 0.35], [E5, 0.7], [C5, 0.7], [B4, 0.7], [A4, 1.1],
+      [E5, 0.35], [E5, 0.35], [C5, 0.7], [D5, 0.7], [C5, 1.4]
+    ];
+
+    let time = audioCtx.currentTime + 0.1;
+
+    melody.forEach(([note, duration]) => {
+      playTone(audioCtx, note, time, duration);
+      time += duration + 0.08;
+    });
+
+    setTimeout(() => {
+      audioCtx.close();
+      isMusicPlaying = false;
+    }, (time - audioCtx.currentTime + 0.5) * 1000);
+  }
 
   scene.addEventListener("click", (event) => {
     if (event.target.closest("a")) return;
 
     isOpen = !isOpen;
 
-    if(isOpen){
+    if (isOpen) {
       card.classList.add("open");
+      playBirthdayMusic();
     } else {
       card.classList.remove("open");
     }
@@ -445,14 +500,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
         <section class="right-page">
           <p class="message-title">A little birthday wish</p>
-
+          
           <div class="message">
-            <span class="person-name">Jessica</span>, I hope your birthday feels as special as you are.
-            May your day be full of smiles, laughter, cake, and memories
-            that make you happy every time you think about them.
-          </div>
-
-
+                  Happy Birthday, <span class="person-name">Jessica</span>! Hope your day is full 
+                  of smiles, cake, and good memories.<br> Wishing you happiness, success, and an amazing year ahead.
+          </div>    
         </section>
       </div>
 
