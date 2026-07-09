@@ -3,6 +3,7 @@ body {
     padding: 0;
     background: linear-gradient(to right, #ff9a9e, #fad0c4);
     font-family: 'Comic Sans MS', cursive, sans-serif;
+    overflow-x: hidden;
 }
 
 /* CARD */
@@ -16,6 +17,7 @@ body {
     text-align: center;
     box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
     animation: popIn 1.2s ease-in-out;
+    box-sizing: border-box;
 }
 
 @keyframes popIn {
@@ -34,6 +36,7 @@ h1 {
     color: #333;
     margin-top: 20px;
     margin-bottom: 30px;
+    line-height: 1.4;
 }
 
 /* CAKE IMAGE */
@@ -44,6 +47,7 @@ h1 {
 
 .cake img {
     width: 250px;
+    max-width: 100%;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(255, 120, 150, 0.5);
 }
@@ -54,6 +58,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .balloon {
@@ -98,6 +103,7 @@ h1 {
     font-size: 15px;
     box-shadow: 0 4px 10px rgba(255, 0, 120, 0.4);
     transition: 0.3s;
+    z-index: 10;
 }
 
 .atharv-btn:hover {
@@ -105,55 +111,71 @@ h1 {
     background: #ff0066;
 }
 
+/* MOBILE FIX */
 @media (max-width: 600px) {
-  body {
-    min-height: 100vh;
-    padding: 20px 10px;
-    overflow-y: auto;
-  }
+    body {
+        min-height: 100vh;
+        padding: 15px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
 
-  .scene {
-    width: 95vw;
-    max-width: 360px;
-    min-height: 520px;
-    margin: 0 auto;
-  }
+    .card {
+        width: 100%;
+        max-width: 360px;
+        margin: 25px auto 90px auto;
+        padding: 20px 15px;
+        border-radius: 18px;
+    }
 
-  .card {
-    width: 100%;
-    min-height: 500px;
-  }
+    h1 {
+        font-size: 26px;
+        line-height: 1.2;
+        margin-bottom: 15px;
+    }
 
-  .card-front,
-  .card-inside {
-    width: 100%;
-    min-height: 500px;
-  }
+    .message {
+        font-size: 16px;
+        line-height: 1.4;
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
 
-  .card-front {
-    transform-origin: left center;
-  }
+    .cake {
+        margin: 15px auto;
+    }
 
-  .card.open .card-front {
-    transform: rotateY(-155deg);
-  }
+    .cake img {
+        width: 190px;
+        max-width: 100%;
+    }
 
-  .message {
-    font-size: 15px;
-    line-height: 1.4;
-    padding: 10px;
-  }
+    .balloons {
+        gap: 12px;
+        margin-top: 25px;
+    }
 
-  h1 {
-    font-size: 26px;
-  }
+    .balloon {
+        width: 40px;
+        height: 58px;
+    }
 
-  .cake {
-    transform: scale(0.8);
-    margin-top: 10px;
-  }
+    .balloon::after {
+        top: 58px;
+        height: 32px;
+    }
 
-  .open-hint {
-    font-size: 14px;
-  }
+    .atharv-btn {
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 15px;
+        font-size: 14px;
+        padding: 10px 16px;
+        white-space: nowrap;
+    }
+
+    .atharv-btn:hover {
+        transform: translateX(50%) scale(1.05);
+    }
 }
